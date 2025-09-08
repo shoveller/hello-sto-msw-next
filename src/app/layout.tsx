@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import ServerSideProvider from '@/app/ServerSideProvider'
+
 import './globals.css'
 
 import { nanumSquare } from './fonts'
@@ -16,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={nanumSquare.variable}>
-      <body className={nanumSquare.className}>{children}</body>
+      <body className={nanumSquare.className}>
+        <ServerSideProvider>{children}</ServerSideProvider>
+      </body>
     </html>
   )
 }

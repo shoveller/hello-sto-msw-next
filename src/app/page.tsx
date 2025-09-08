@@ -1,96 +1,38 @@
-import NextImage from 'next/image'
+import { client } from '@/api/client'
+import Abilitylist from '@/app/Abilitylist'
+import PokemonList from '@/app/PokemonList'
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate
+} from '@tanstack/react-query'
 
-import styles from './page.module.css'
+// 서버사이드 프리패치
+export default async function Home({
+  searchParams
+}: {
+  // next.js 에는 page.js 에 서버사이드 컨텍스트를 prop으로 전달하는 기능이 있다.
+  searchParams: Promise<{ limit: string; offset: string }>
+}) {
+  const params = await searchParams
+  const limit = Number(params.limit || '10')
+  const offset = Number(params.offset || '0')
 
-export default function Home() {
+  // 서버에서 쿼리 미리 실행
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery({
+    queryKey: ['pokelist', limit, offset],
+    queryFn: () =>
+      client.api.apiV2PokemonList({ limit, offset }).then((res) => res.data)
+  })
+
+  // react query는 서버사이드 데이터를 클라이언트로 전송하는 기능을 내장하고 있다.
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <NextImage
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <NextImage
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <NextImage
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <NextImage
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <NextImage
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <Abilitylist />
+        <PokemonList />
+      </div>
+    </HydrationBoundary>
   )
 }
