@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    /* 컴파일 성능 최적화 */
+    "skipLibCheck": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./node_modules/.cache/tsc/tsbuildinfo",
+
+    /* 출력 제어 */
+    "noEmit": true,
+
+    /* 엄격한 타입 검사 */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    /* 구문 분석 최적화 */
+    "erasableSyntaxOnly": true
+  }
+}

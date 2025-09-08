@@ -1,0 +1,23 @@
+{
+  "endOfLine": "lf",
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "plugins": [
+    "prettier-plugin-css-order",
+    "prettier-plugin-classnames",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "^react",
+    "^next",
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    ".css$",
+    ".scss$",
+    "^[.]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
