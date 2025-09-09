@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
 
 import { client } from '@/api/client'
+import MockProvider from '@/api/mock/MockProvider'
 import ReactQueryProvider from '@/app/ReactQueryProvider'
 
 /**
@@ -21,7 +22,7 @@ const ServerSideProvider: FC<PropsWithChildren> = async ({ children }) => {
 
   return (
     <ReactQueryProvider initialData={initialData}>
-      {children}
+      <MockProvider>{children}</MockProvider>
     </ReactQueryProvider>
   )
 }
