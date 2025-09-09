@@ -1,6 +1,7 @@
 - 셀프호스팅을 할 때 서버사이드 캐시를 마련할 형편이 안 될수도 있다.
 - 이럴 때는 최초 1회만 SSR을 이용하고, 이후의 캐시는 클라이언트에 저장하는 것도 방법이다.
 - [[next.js 15의 app route + ssg 용 스케폴드 레시피(2025.08)]] 를 ssr 모드로 개선하는 레시피를 정리한다.
+
 # 스탠드얼론 모드 설정
 - `next.config.ts` 의 `output` 을 `standalone` 으로 설정한다.
     - `standalone` 모드는 node.js 에서 독립 실행이 가능한 빌드를 생성한다.
@@ -80,7 +81,8 @@ flowchart TD
     - `useState` 안에서 초기화해서 초기화 시점을 지연하는 것이 핵심 기술이다.
 - `queryKey2Tuple` 은 `prefetch` 한 `initialData` 의 키를 파싱해서 리액트 쿼리의 초기값을 제공한다.
     - 하이드레이션 실패를 막는 효과가 있다.
-      `ReactQueryProvider.tsx`
+
+`ReactQueryProvider.tsx`
 ```tsx
 'use client'
 
@@ -155,7 +157,8 @@ export default ReactQueryProvider
 
 # 서버사이드 프로바이더 생성
 - 최상위에서 클라이언트 프로바이더를 하이드레이션하는 용도로 사용한다.
-  `ServerSideProvider.tsx`
+
+`ServerSideProvider.tsx`
 ```tsx
 import { FC, PropsWithChildren } from 'react'
 
@@ -191,7 +194,8 @@ export default ServerSideProvider
 # next.js 의 네비게이션과 클라이언트 패치 통합
 - react-router 와 DX는 비슷한데 디테일이 조금 다르다.
     - 쿼리스트링을 커스텀 훅을 사용하면 조금 나아진다.
-      `PokemonList.tsx`
+
+`PokemonList.tsx`
 ```tsx
 'use client'
 
@@ -277,7 +281,8 @@ export default function PokemonList() {
 
 # 서버 데이터를 클라이언트에 하이드레이션
 - 실제로 데이터를 소비하는 컴포넌트는 평이하다.
-  `Abilitylist.tsx`
+
+`Abilitylist.tsx`
 ```tsx
 'use client'
 
@@ -343,7 +348,8 @@ export default function RootLayout({
 # 서버사이드 프리패치
 - react query는 서버사이드 데이터를 클라이언트로 전송하는 기능을 내장하고 있다.
     - `HydrationBoundary` , `dehydrate` 가 핵심 컴포넌트이다.
-      `src/page.tsx`
+
+`src/page.tsx`
 ```tsx
 import { client } from '@/api/client'
 import Abilitylist from '@/app/Abilitylist'
