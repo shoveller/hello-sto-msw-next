@@ -11,7 +11,9 @@
     "eslint": "eslint --fix --ignore-pattern .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "prepare": "husky",
     "format": "run-s type:check prettier eslint",
-    "api": "pnpx swagger-typescript-api generate --path https://raw.githubusercontent.com/PokeAPI/pokeapi/refs/heads/master/openapi.yml -o ./src/api"
+    "api": "pnpx swagger-typescript-api generate --path https://raw.githubusercontent.com/PokeAPI/pokeapi/refs/heads/master/openapi.yml -o ./src/api",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.87.1",
@@ -40,7 +42,10 @@
     "prettier-plugin-classnames": "^0.8.2",
     "prettier-plugin-css-order": "^2.1.2",
     "typescript": "^5",
-    "typescript-eslint": "^8.42.0"
+    "typescript-eslint": "^8.42.0",
+    "storybook": "^9.1.5",
+    "@storybook/nextjs": "^9.1.5",
+    "@storybook/addon-docs": "^9.1.5"
   },
   "msw": {
     "workerDirectory": [
