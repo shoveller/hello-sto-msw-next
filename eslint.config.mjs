@@ -95,7 +95,8 @@ const ignorePatterns = {
     '**/*.d.mts',
     '**/*.d.cts',
     '.next',
-    './src/api/Api.ts'
+    './src/api/Api.ts',
+    'public'
   ]
 }
 
