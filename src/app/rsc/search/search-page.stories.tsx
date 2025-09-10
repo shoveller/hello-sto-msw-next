@@ -10,7 +10,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Success: Story = {
+export const 성공: Story = {
   args: {
     searchParams: {
       q: '1',

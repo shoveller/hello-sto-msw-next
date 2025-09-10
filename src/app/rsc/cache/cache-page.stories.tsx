@@ -1,3 +1,4 @@
+import ServerComponentWrapper from '@/app/ServerComponentWrapper'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 import { HttpResponse, http } from 'msw'
 
@@ -19,8 +20,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  name: 'GitHub API with Cache',
+export const 실패: Story = {
   parameters: {
     msw: {
       handlers: [
@@ -39,23 +39,12 @@ export const Default: Story = {
           'Demonstrates RSC with MSW-mocked GitHub API and Next.js cache control'
       }
     }
-  }
-}
-
-export const WithError: Story = {
-  name: 'API Error Handling',
-  parameters: {
-    msw: {
-      handlers: [
-        http.get('https://api.github.com/repos/vercel/next.js', () => {
-          return HttpResponse.error()
-        })
-      ]
-    },
-    docs: {
-      description: {
-        story: 'Tests RSC error handling when external API fails'
-      }
-    }
+  },
+  render: () => {
+    return (
+      <ServerComponentWrapper fallback={<div>서버 컴포넌트 로딩중...</div>}>
+        {page}
+      </ServerComponentWrapper>
+    )
   }
 }

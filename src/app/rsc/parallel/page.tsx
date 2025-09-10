@@ -1,13 +1,15 @@
-async function getUsers() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+import { delay } from 'msw'
 
-  return response.json()
+async function getUsers() {
+  await delay(100)
+
+  return [1, 2]
 }
 
 async function getPosts() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+  await delay(100)
 
-  return response.json()
+  return [1, 2, 3]
 }
 
 export default async function ParallelComponent() {

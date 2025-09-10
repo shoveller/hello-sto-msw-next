@@ -18,8 +18,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  name: 'Auth Check',
+export const 성공: Story = {
   parameters: {
     docs: {
       description: {
