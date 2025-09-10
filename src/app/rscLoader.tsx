@@ -75,7 +75,6 @@ export default function withRSC(options?: { fallback?: ReactNode }) {
     // @ts-expect-error
     const args = context.args
 
-    // TODO: Cannot handle cases where serverComponent receives parameters. Props should be passed in render prop format
     return (
       <RscLoader
         fallback={options?.fallback ?? <div>Loading server component...</div>}
