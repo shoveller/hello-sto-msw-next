@@ -17,22 +17,22 @@ export function RscLoader({
   const [renderedContent, setRenderedContent] = useState<ReactNode>(null)
 
   useEffect(() => {
-    // 서버 컴포넌트를 함수로 실행
+    // Execute server component as function
     const renderServerComponent = async () => {
       try {
-        // children이 함수인 경우 (서버 컴포넌트)
+        // If children is a function (server component)
         if (typeof children === 'function') {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
           const result = await children(args)
           setRenderedContent(result)
         } else {
-          // 일반 JSX인 경우
+          // If it's regular JSX
           setRenderedContent(children)
         }
       } catch (error) {
-        console.error('서버 컴포넌트 렌더링 실패:', error)
-        setRenderedContent(<div>렌더링 실패</div>)
+        console.error('Server component rendering failed:', error)
+        setRenderedContent(<div>Rendering failed</div>)
       } finally {
         setIsLoading(false)
       }
@@ -41,25 +41,25 @@ export function RscLoader({
     renderServerComponent()
   }, [children])
 
-  // 로딩 중이면 fallback 렌더링
+  // Render fallback during loading
   if (isLoading) {
     return <>{fallback}</>
   }
 
-  // 렌더링된 컨텐츠 표시
+  // Display rendered content
   return <>{renderedContent}</>
 }
 
 /**
  * Storybook decorator for wrapping server components with loading state
  * @param options - Configuration options for the decorator
- * @param options.fallback - Custom fallback UI during loading (default: "서버 컴포넌트 로딩중...")
+ * @param options.fallback - Custom fallback UI during loading (default: "Loading server component...")
  * @returns Storybook decorator function
  *
  * @example
  * ```tsx
  * export const MyStory: Story = {
- *   decorators: [withServerComponent({
+ *   decorators: [withRSC({
  *     fallback: <div>Custom loading...</div>
  *   })]
  * }
@@ -67,7 +67,7 @@ export function RscLoader({
  */
 export default function withRSC(options?: { fallback?: ReactNode }) {
   const decorator = (_Story: React.ComponentType, context: unknown) => {
-    // context.component가 서버 컴포넌트 함수
+    // context.component is the server component function
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const serverComponent = context.component
@@ -75,10 +75,10 @@ export default function withRSC(options?: { fallback?: ReactNode }) {
     // @ts-expect-error
     const args = context.args
 
-    // TODO: serverComponent 가 파라미터를 받는 경우에 대응하지 못함. prop을 render prop 형식으로 넘겨야 한다
+    // TODO: Cannot handle cases where serverComponent receives parameters. Props should be passed in render prop format
     return (
       <RscLoader
-        fallback={options?.fallback ?? <div>서버 컴포넌트 로딩중...</div>}
+        fallback={options?.fallback ?? <div>Loading server component...</div>}
         args={args}
       >
         {serverComponent}

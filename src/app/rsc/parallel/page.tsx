@@ -17,8 +17,8 @@ export default async function ParallelComponent() {
 
   return (
     <div>
-      <h1>사용자 수: {users.length}</h1>
-      <h1>포스트 수: {posts.length}</h1>
+      <h1>User count: {users.length}</h1>
+      <h1>Post count: {posts.length}</h1>
     </div>
   )
 }

@@ -5,8 +5,8 @@ export default function ServerOnlyComponent() {
 
   return (
     <div>
-      <h1>서버 전용 암호화</h1>
-      <p>해시: {hash}</p>
+      <h1>Server-only Encryption</h1>
+      <p>Hash: {hash}</p>
     </div>
   )
 }

@@ -11,6 +11,6 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const 성공: Story = {
+export const Success: Story = {
   decorators: [withRSC()]
 }
