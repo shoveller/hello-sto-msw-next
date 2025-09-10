@@ -1,3 +1,4 @@
+import withRSC from '@/app/rscLoader'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 import page from './page'
@@ -11,6 +12,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 성공: Story = {
+  decorators: [withRSC()],
   args: {
     params: {
       id: '1'

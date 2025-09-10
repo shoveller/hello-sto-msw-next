@@ -19,6 +19,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const 실패: Story = {
+  // decorators: [withRSC()],
   parameters: {
     docs: {
       description: {

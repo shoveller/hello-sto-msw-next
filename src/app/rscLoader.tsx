@@ -4,11 +4,13 @@ import React, { ReactNode, useEffect, useState } from 'react'
 
 type ServerComponentWrapperProps = {
   children: (() => Promise<ReactNode>) | ReactNode
+  args: Record<never, never>
   fallback?: ReactNode
 }
 
 export function RscLoader({
   children,
+  args,
   fallback = <div>Loading...</div>
 }: ServerComponentWrapperProps) {
   const [isLoading, setIsLoading] = useState(true)
@@ -20,7 +22,9 @@ export function RscLoader({
       try {
         // children이 함수인 경우 (서버 컴포넌트)
         if (typeof children === 'function') {
-          const result = await children()
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          const result = await children(args)
           setRenderedContent(result)
         } else {
           // 일반 JSX인 경우
@@ -67,10 +71,15 @@ export default function withRSC(options?: { fallback?: ReactNode }) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const serverComponent = context.component
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const args = context.args
 
+    // TODO: serverComponent 가 파라미터를 받는 경우에 대응하지 못함. prop을 render prop 형식으로 넘겨야 한다
     return (
       <RscLoader
         fallback={options?.fallback ?? <div>서버 컴포넌트 로딩중...</div>}
+        args={args}
       >
         {serverComponent}
       </RscLoader>

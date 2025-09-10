@@ -17,7 +17,7 @@ const preview: Preview = {
       appDirectory: true
     }
   },
-  loaders: [mswLoader] // MSW 로더 다시 활성화
+  loaders: [mswLoader]
 }
 
 export default preview

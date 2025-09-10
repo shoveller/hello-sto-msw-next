@@ -28,9 +28,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const MSW_목킹: Story = {
-  decorators: [
-    withRSC({
-      fallback: <div>📡 API 데이터 로딩중...</div>
-    })
-  ]
+  decorators: [withRSC()]
 }

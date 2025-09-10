@@ -3,7 +3,7 @@ type SearchParams = {
   category?: string
 }
 
-export default function SearchComponent({
+export default async function SearchComponent({
   searchParams
 }: {
   searchParams: SearchParams
