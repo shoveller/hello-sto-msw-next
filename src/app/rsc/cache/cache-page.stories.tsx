@@ -1,4 +1,4 @@
-import ServerComponentWrapper from '@/app/ServerComponentWrapper'
+import withRSC from '@/app/rscLoader'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 import { HttpResponse, http } from 'msw'
 
@@ -6,6 +6,7 @@ import page from './page'
 
 const meta = {
   component: page,
+  decorators: [withRSC()],
   parameters: {
     docs: {
       description: {
@@ -39,12 +40,5 @@ export const 실패: Story = {
           'Demonstrates RSC with MSW-mocked GitHub API and Next.js cache control'
       }
     }
-  },
-  render: () => {
-    return (
-      <ServerComponentWrapper fallback={<div>서버 컴포넌트 로딩중...</div>}>
-        {page}
-      </ServerComponentWrapper>
-    )
   }
 }

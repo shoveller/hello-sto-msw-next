@@ -1,4 +1,4 @@
-import ServerComponentWrapper from '@/app/ServerComponentWrapper'
+import withRSC from '@/app/rscLoader'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 import { HttpResponse, http } from 'msw'
 
@@ -27,12 +27,10 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const 성공: Story = {
-  render: () => {
-    return (
-      <ServerComponentWrapper fallback={<div>서버 컴포넌트 로딩중...</div>}>
-        {page}
-      </ServerComponentWrapper>
-    )
-  }
+export const MSW_목킹: Story = {
+  decorators: [
+    withRSC({
+      fallback: <div>📡 API 데이터 로딩중...</div>
+    })
+  ]
 }
