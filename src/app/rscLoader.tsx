@@ -39,7 +39,7 @@ export function RscLoader({
     }
 
     renderServerComponent()
-  }, [children])
+  }, [args, children])
 
   // Render fallback during loading
   if (isLoading) {
